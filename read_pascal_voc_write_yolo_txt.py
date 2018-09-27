@@ -1,9 +1,9 @@
 ## tf 22/08/18
-## Read in the pascal voc file and produce a file that 
+## Read in the pascal voc file and produce a file that
 import os
 import xml.etree.ElementTree as ET
 
-base_dir = '/Users/datascience4/Documents/training3'
+base_dir = 'data/training3'
 print(len(os.listdir(base_dir)))
 xml_files = os.listdir(base_dir)
 xml_files = [x for x in os.listdir(base_dir) if '.xml' in x]
@@ -24,7 +24,8 @@ for i in range(len(xml_files)):
     ## path/to/img1.jpg xmin,ymin,xmax,ymax,class_id xmin,ymin,xmax,ymax,class_id
     ## path/to/img2.jpg xmin,ymin,xmax,ymax,class_id
     ## so each object in an image is only seperated by a space
-    path = root.find('path').text
+    filename = root.find('filename').text
+    path = '/Users/liucija/repos/highways-deep-learning/data/frames/'
     ## make it a string for ease
     object_xml = ''
     for child in root.iter('object'):
@@ -50,7 +51,7 @@ for i in range(len(xml_files)):
             object_xml = str(xmin) + ',' + str(ymin) + ',' + str(xmax) + ',' \
                 + str(ymax) + ',' + str(class_pos)
             if bool(object_xml) == True:
-                line = path + ' ' + object_xml + '\n'
+                line = path + filename + ' ' + object_xml + '\n'
                 items.append(line)
 
 print(classes)

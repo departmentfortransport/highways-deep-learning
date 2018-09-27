@@ -1,8 +1,9 @@
 import os
+data_dir = 'data/videos/'
+dest_dir = 'data/frames/'
+print(os.listdir(data_dir))
 
-print(os.listdir('../SCANNER 2018 VIDEO/70093 WARWICKSHIRE'))
-
-all_files = os.listdir('../SCANNER 2018 VIDEO/70093 WARWICKSHIRE')
+all_files = os.listdir(data_dir)
 
 print(all_files)
 
@@ -60,7 +61,7 @@ try:
         os.makedirs('data')
 except OSError:
     print('Error: Creating directory of data')
-    
+
 def video_to_images(video_path):
     video = cv2.VideoCapture(video_path)
     currentFrame = 1
@@ -71,16 +72,16 @@ def video_to_images(video_path):
         if frame_bool == False:
             frame_exists = False
         else:
-            # 41 is the absolute path
-            name = './data/' + str(video_path[41:-4] + '_frame_' + str(currentFrame) + '.jpg')
+            # 12 is the absolute path
+            name = dest_dir + str(video_path[12:-4] + '_frame_' + str(currentFrame) + '.jpg')
             print('Creating...' + name)
             cv2.imwrite(name, frame)
             currentFrame += 1
 
     video.release()
     cv2.destroyAllWindows()
-        
+
 # video_to_images('A38_NB_YR2_R09_180519132259.avi')
 # video_to_images('../SCANNER 2018 VIDEO/70093 WARWICKSHIRE/' + 'C166_NB_RAV_YR2_R07_180514152253.avi')
 for x in range(len(video_only)):
-    video_to_images('../SCANNER 2018 VIDEO/70093 WARWICKSHIRE/' + video_only[x])
+    video_to_images(data_dir + video_only[x])
